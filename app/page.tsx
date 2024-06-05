@@ -6,7 +6,10 @@ const Home = () => {
     <section className="home md:container md:mx-auto">
       <div className="home-content">
         <header className="home-header">Payroll Perfect</header>
-        <PremiumEstimator />
+
+        <div className="flex flex-col items-center">
+          <PremiumEstimator />
+        </div>
       </div>
     </section>
   );
