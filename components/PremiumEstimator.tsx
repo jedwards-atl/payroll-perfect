@@ -14,35 +14,36 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 const formSchema = z.object({
   businessTrade: z.string().min(2, {
     message: "Must be applicable business trade.",
   }),
   businessState: z.string().min(2, {
-    message: "Must be applicable business trade.",
+    message: "Must be applicable state.",
   }),
-  businessPayroll: z.string().min(2, {
-    message: "Must be applicable business trade.",
+  businessPayroll: z.coerce.number().int().positive().min(1, {
+    message: "Must be a positive number.",
   }),
 });
 
 const PremiumEstimator = () => {
-  // 1. Define your form.
+  const [coverageEstimate, setCoverageEstimate] = useState(0);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       businessTrade: "",
       businessState: "",
-      businessPayroll: "",
+      businessPayroll: 0,
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
+    const payrollNumber = Number(values.businessPayroll);
+    setCoverageEstimate(payrollNumber);
   }
 
   return (
@@ -58,7 +59,7 @@ const PremiumEstimator = () => {
               name="businessTrade"
               render={({ field }) => (
                 <div className="form-item">
-                  <FormLabel className="form-label font-bold text-black-1 pb-2">
+                  <FormLabel className="form-label pb-2">
                     What does your business do?
                   </FormLabel>
                   <div className="w-full flex flex-col">
@@ -79,10 +80,10 @@ const PremiumEstimator = () => {
           <div className="border rounded-lg border-gray-1 p-8">
             <FormField
               control={form.control}
-              name="businessTrade"
+              name="businessState"
               render={({ field }) => (
                 <div className="form-item">
-                  <FormLabel className="form-label font-bold text-black-1 pb-2">
+                  <FormLabel className="form-label pb-2">
                     What state is your business in?
                   </FormLabel>
                   <div className="w-full flex flex-col">
@@ -106,7 +107,7 @@ const PremiumEstimator = () => {
               name="businessPayroll"
               render={({ field }) => (
                 <div className="form-item">
-                  <FormLabel className="form-label font-bold text-black-1 pb-2">
+                  <FormLabel className="form-label pb-2">
                     What is your estimated annual payroll?
                   </FormLabel>
                   <div className="w-full flex flex-col">
@@ -131,29 +132,13 @@ const PremiumEstimator = () => {
             </Button>
           </div>
 
-          <div className="border rounded-lg border-gray-1 p-8">
-            <FormField
-              control={form.control}
-              name="businessPayroll"
-              render={({ field }) => (
-                <div className="form-item">
-                  <FormLabel className="form-label font-bold text-black-1 pb-2">
-                    What is your estimated annual payroll?
-                  </FormLabel>
-                  <div className="w-full flex flex-col">
-                    <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="ex: 200,000"
-                        className="input-class"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="form-message mt-2" />
-                  </div>
-                </div>
-              )}
-            />
+          <div className="border rounded-lg border-gray-1 p-12 flex flex-col items-center">
+            <p className="form-label pb-12 text-center w-full">
+              Coverage starting at
+            </p>
+            <p className="text-92 w-full font-medium text-gray-1  text-center">
+              ${coverageEstimate}/Month
+            </p>
           </div>
         </form>
       </Form>
