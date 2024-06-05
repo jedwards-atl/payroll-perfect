@@ -6,21 +6,21 @@ const Home = () => {
     <>
       <div className="bg-blue-1 p-20">
         <div className="md:container md:mx-auto coronavirus-cover-lookup">
-          <div class="module form">
-            <div class="module-content">
-              <div class="left-content">
+          <div className="module form">
+            <div className="module-content">
+              <div className="left-content">
                 <h2>Estimate in seconds</h2>
                 <h3>
                   Workers' Comp in a click. Simply slide your payroll tool to
                   get an estimate for your workers' comp policy!
                 </h3>
                 <ul>
-                  <li class="credit-card">Slide</li>
-                  <li class="file-certificate">Estimate</li>
-                  <li class="message-smile">Insure</li>
+                  <li className="credit-card">Slide</li>
+                  <li className="file-certificate">Estimate</li>
+                  <li className="message-smile">Insure</li>
                 </ul>
               </div>
-              <div class="right-content">
+              <div className="right-content">
                 <img
                   alt="Woman and man looking at laptop"
                   src="woman-and-man-looking-at-laptop.png"
