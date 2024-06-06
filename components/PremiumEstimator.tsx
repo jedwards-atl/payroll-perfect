@@ -65,6 +65,9 @@ const PremiumEstimator = () => {
 
         setCoverageEstimateLow(coverage_estimate_low)
         setCoverageEstimateHigh(coverage_estimate_high)
+      } else {
+        setCoverageEstimateLow(0)
+        setCoverageEstimateHigh(0)
       }
     }
   }
@@ -72,8 +75,10 @@ const PremiumEstimator = () => {
   return (
     <section className="flex flex-col items-center">
       <div className="w-1/2 xl:w-1/3 bg-white p-16 rounded-3xl">
-        <header className="home-header items-center w-full text-36 pb-12">
-          Comp Quick - Premium Estimator
+        <header className="home-header items-center w-full text-36 pb-12 text-center">
+          Comp Quick
+          <br />
+          Premium Estimator
         </header>
         <Form {...form}>
           <form
@@ -159,13 +164,19 @@ const PremiumEstimator = () => {
                   Estimating your premium...
                 </p>
               ) : (
-                <div>
+                <div>                  
                   <p className="form-label pb-8 text-center w-full">
                     Coverage starting at
                   </p>
-                  <p className="text-92 w-full font-medium text-gray-1  text-center">
-                    ${coverageEstimateLow} - ${coverageEstimateHigh}/Month
-                  </p>
+                  {coverageEstimateLow === coverageEstimateHigh ? (
+                    <p className="text-36 w-full font-medium text-gray-1  text-center">
+                      ${coverageEstimateLow}/Month
+                    </p>
+                  ) : (
+                    <p className="text-36 w-full font-medium text-gray-1  text-center">
+                      ${coverageEstimateLow} - ${coverageEstimateHigh}/Month
+                    </p>
+                  )}
                 </div>
               )}
             </div>
