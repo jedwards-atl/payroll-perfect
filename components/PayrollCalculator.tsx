@@ -83,7 +83,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
               src="darkUnderline.svg"
               alt="underline"
               height={30}
-              width={320}
+              width={300}
             />
           </div>
         </header>
