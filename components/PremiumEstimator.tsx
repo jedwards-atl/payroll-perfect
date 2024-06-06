@@ -29,7 +29,8 @@ const formSchema = z.object({
 });
 
 const PremiumEstimator = () => {
-  const [coverageEstimate, setCoverageEstimate] = useState(0);
+  const [coverageEstimateLow, setCoverageEstimateLow] = useState(0);
+  const [coverageEstimateHigh, setCoverageEstimateHigh] = useState(0);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,10 +42,6 @@ const PremiumEstimator = () => {
   });
 
   const onInputChange = (event: any) => {
-    const { name, value } = event.target
-    console.log(form.getValues())
-    let coverage_estimate = 0
-
     let rate = {
       'Restaurants': { 'New Mexico': '0.9', 'Idaho': '0.9', 'Georgia': '0.9', 'Alabama': '0.9'},
       'Plumbing': { 'New Mexico': '2.52', 'Idaho': '2.52', 'Georgia': '2.52', 'Alabama': '2.52'},
@@ -56,13 +53,20 @@ const PremiumEstimator = () => {
     if (trade_rate) {
       let state_rate = trade_rate[form.getValues('businessState') as keyof typeof trade_rate];
       if (state_rate) {
-        coverage_estimate = Math.ceil(((form.getValues('businessPayroll') * parseFloat(state_rate)) / 100) / 12);
+        const coverage_estimate_year = form.getValues('businessPayroll') * parseFloat(state_rate) / 100;
+        const percentage_variance = coverage_estimate_year < 1000 ? 0.15 : coverage_estimate_year < 2000 ? 0.1 : 0.05;
+        // Make +/-15% range on on less than 1k
+        // Make +/-10% range on 1k-1.9k
+        // Make +/- 5% range on estimate 2k or
+
+        const monthly_coverage = coverage_estimate_year / 12;
+        const coverage_estimate_low = Math.ceil(monthly_coverage - (monthly_coverage * percentage_variance))
+        const coverage_estimate_high = Math.ceil(monthly_coverage + (monthly_coverage * percentage_variance))
+
+        setCoverageEstimateLow(coverage_estimate_low)
+        setCoverageEstimateHigh(coverage_estimate_high)
       }
-
-      console.log(form.getValues('businessPayroll'));
     }
-
-    setCoverageEstimate(coverage_estimate)
   }
 
   return (
@@ -150,12 +154,20 @@ const PremiumEstimator = () => {
             </div>
 
             <div className="border rounded-lg border-gray-1 p-12 flex flex-col items-center">
-              <p className="form-label pb-8 text-center w-full">
-                Coverage starting at
-              </p>
-              <p className="text-92 w-full font-medium text-gray-1  text-center">
-                ${coverageEstimate}/Month
-              </p>
+              {coverageEstimateLow === 0 && coverageEstimateHigh === 0 ? (
+                <p className="form-label pb-8 text-center w-full">
+                  Estimating your premium...
+                </p>
+              ) : (
+                <div>
+                  <p className="form-label pb-8 text-center w-full">
+                    Coverage starting at
+                  </p>
+                  <p className="text-92 w-full font-medium text-gray-1  text-center">
+                    ${coverageEstimateLow} - ${coverageEstimateHigh}/Month
+                  </p>
+                </div>
+              )}
             </div>
           </form>
         </Form>
