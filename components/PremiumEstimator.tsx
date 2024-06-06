@@ -252,7 +252,7 @@ const PremiumEstimator = ({ toggleCalculator, payroll }: Props) => {
                       className="flex flex-row cursor-pointer underline underline-offset-4 text-blue-1"
                       onClick={() => setPayrollFromCalc()}
                     >
-                      Payroll Calculators
+                      Payroll Calculator
                     </p>
                   </div>
                 )}
@@ -296,7 +296,7 @@ const PremiumEstimator = ({ toggleCalculator, payroll }: Props) => {
               className="form-btn-2 px-24 w-full text-white flex"
               type="submit"
             >
-              <p className="text-white">Start Quote Now</p>
+              <p className="text-white">Start your quote</p>
               <Image
                 src="whiteRightArrow.svg"
                 alt="arrow right"
@@ -307,6 +307,13 @@ const PremiumEstimator = ({ toggleCalculator, payroll }: Props) => {
             </Button>
           </Link>
         </div>
+        <div className="legal-disclaimer">
+          <p>
+            Prices shown are an estimate based on your trade, state, and payroll.
+          </p>
+          <p>Please continue to your quote to get your finalized price!</p>
+        </div>
+
       </div>
     </section>
   );
