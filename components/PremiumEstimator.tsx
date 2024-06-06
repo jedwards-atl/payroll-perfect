@@ -235,22 +235,23 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                               thumb: {
                                 width: 20,
                                 height: 20,
+                                backgroundColor: '#4632d8',
                               },
                             }}
                         />
                       </FormControl>
-                      <div className="slider-labels">
+                      <div className="slider-labels pt-2">
                         <div className="payroll-min">$0</div>
+                        <div className="payroll-value text-purple-2"><b>${form.watch('businessPayroll').toLocaleString()}</b></div>
                         <div className="payroll-max">$1,000,000</div>
                       </div>
-                      <div className="payroll-value">${form.watch('businessPayroll').toLocaleString()}</div>
-                      <FormMessage className="form-message mt-2"/>
+                      <FormMessage className="form-message mt-500"/>
                     </div>
                     <p
                       className="flex flex-row cursor-pointer underline underline-offset-4 text-blue-1"
                       onClick={() => setPayrollFromCalc()}
                     >
-                      Payroll Assistance
+                      Payroll Calculators
                     </p>
                   </div>
                 )}
@@ -260,20 +261,20 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
             <div className="border rounded-lg border-gray-1 p-12 flex flex-col items-center">
               {coverageEstimateLow === 0 && coverageEstimateHigh === 0 ? (
                 <p className="form-label pb-8 text-center w-full">
-                  Estimating your premium...
+                  Please enter your business information above
                 </p>
               ) : (
                 <div>
                   <p className="form-label pb-8 text-center w-full">
-                    Coverage starting at
+                    Workers' Comp Insurance
                   </p>
                   {coverageEstimateLow === coverageEstimateHigh ? (
-                    <p className="text-36 w-full font-medium text-gray-1  text-center">
-                      ${coverageEstimateLow}/Month
+                    <p className="text-36 w-full font-medium text-purple-2  text-center">
+                      ${coverageEstimateLow}
                     </p>
                   ) : (
-                    <p className="text-36 w-full font-medium text-gray-1  text-center">
-                      ${coverageEstimateLow} - ${coverageEstimateHigh}/Month
+                    <p className="text-36 w-full font-medium text-purple-2  text-center">
+                      ${coverageEstimateLow} - ${coverageEstimateHigh}
                     </p>
                   )}
                 </div>

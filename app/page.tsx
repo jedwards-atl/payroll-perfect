@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <div className="bg-gray-200 pb-20">
-      <div className="bg-blue-1 px-20 pt-32 pb-44">
+      <div className="bg-blue-1 px-20 pt-32 pb-80">
         <div className="md:container md:mx-auto coronavirus-cover-lookup">
           <div className="module form">
             <div className="module-content">
@@ -40,7 +40,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="-mt-20">
+      <div className="-mt-64">
         {showPayrollCalculator ? (
           <PayrollCalculator toggleCalculator={handleSetPayrollCalculator} />
         ) : (

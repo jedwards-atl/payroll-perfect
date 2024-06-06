@@ -100,7 +100,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label-2 pb-2">
-                      Average Hourly Wage Per Employee
+                      Average hourly wage per employee
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -128,7 +128,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label-2 pb-2">
-                      Number of Employees
+                      Number of employees
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -156,7 +156,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label-2 pb-2">
-                      Estimated Average Hours Worked per Week
+                      Estimated average hours worked per week
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
