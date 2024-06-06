@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Payroll Perfect",
-  description: "Payroll Perfect",
+  title: "Comp Quick",
+  description: "Quickly estimate your workers' comp policy premium.",
 };
 
 export default function RootLayout({
