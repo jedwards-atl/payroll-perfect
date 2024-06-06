@@ -48,7 +48,7 @@ const PremiumEstimator = () => {
 
   return (
     <section className="flex flex-col items-center">
-      <div className="w-1/2 bg-white p-16 rounded-3xl">
+      <div className="w-1/2 lg:w-1/3 bg-white p-16 rounded-3xl">
         <header className="home-header items-center w-full text-36 pb-12">
           Premium Estimator
         </header>
