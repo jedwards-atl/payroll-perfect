@@ -40,10 +40,29 @@ const PremiumEstimator = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    const payrollNumber = Number(values.businessPayroll);
-    setCoverageEstimate(payrollNumber);
+  const onInputChange = (event: any) => {
+    const { name, value } = event.target
+    console.log(form.getValues())
+    let coverage_estimate = 0
+
+    let rate = {
+      'Restaurants': { 'New Mexico': '0.9', 'Idaho': '0.9', 'Georgia': '0.9', 'Alabama': '0.9'},
+      'Plumbing': { 'New Mexico': '2.52', 'Idaho': '2.52', 'Georgia': '2.52', 'Alabama': '2.52'},
+      'Dentistry': { 'New Mexico': '0.2', 'Idaho': '0.2', 'Georgia': '0.2', 'Alabama': '0.2'},
+      'Carpentry': { 'New Mexico': '3.47', 'Idaho': '3.47', 'Georgia': '3.47', 'Alabama': '3.47'}
+    }
+
+    let trade_rate = rate[form.getValues('businessTrade')]
+    if (trade_rate) {
+      let state_rate = trade_rate[form.getValues('businessState')]
+      if (state_rate) {
+        coverage_estimate = Math.ceil(((form.getValues('businessPayroll') * state_rate) / 100) / 12)
+      }
+
+      console.log(form.getValues('businessPayroll'))
+    }
+
+    setCoverageEstimate(coverage_estimate)
   }
 
   return (
@@ -54,7 +73,7 @@ const PremiumEstimator = () => {
         </header>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onChange={(e) => onInputChange(e)}
             className="space-y-12 gap-12"
           >
             <div className="border rounded-lg border-gray-1 p-8">
@@ -128,12 +147,6 @@ const PremiumEstimator = () => {
                   </div>
                 )}
               />
-            </div>
-
-            <div className="flex flex-col items-center">
-              <Button className="form-btn py-4 px-8" type="submit">
-                Submit
-              </Button>
             </div>
 
             <div className="border rounded-lg border-gray-1 p-12 flex flex-col items-center">
