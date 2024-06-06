@@ -197,7 +197,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
               <p className="form-label-2 pb-8 text-center w-full">
                 Coverage starting at
               </p>
-              <p className="text-92 w-full font-medium text-gray-1  text-center">
+              <p className="text-36 w-full font-medium text-gray-1  text-center">
                 ${payrollAmount}/Month
               </p>
             </div>
