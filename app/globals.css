@@ -186,11 +186,12 @@
     /* Add additional styling as needed */
     padding-left: 30px;
     padding-top: 30px;
+    margin-right: -130px;
     color: white;
   }
 
   .right-content {
-    /*width: 50%;*/
+    width: 470px;
     /*margin-left: 80%;*/
     /* Add additional styling as needed */
   }
