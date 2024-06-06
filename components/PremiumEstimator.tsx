@@ -143,7 +143,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
               src="lightUnderline.svg"
               alt="underline"
               height={30}
-              width={200}
+              width={320}
             />
           </div>
         </header>
