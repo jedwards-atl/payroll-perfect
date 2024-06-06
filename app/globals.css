@@ -151,6 +151,10 @@
     @apply text-16 rounded bg-blue-2 font-semibold text-gray-900 shadow-form;
   }
 
+  .form-btn-2 {
+    @apply text-16 rounded bg-blue-1 font-semibold text-gray-900 shadow-form;
+  }
+
   .form-link {
     @apply text-14 cursor-pointer font-medium text-bankGradient;
   }

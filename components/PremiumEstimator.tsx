@@ -18,7 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PayrollCalculator from "./PayrollCalculator";
 import React, { useState } from "react";
-import Slider from 'react-input-slider';
+import Slider from "react-input-slider";
 
 const formSchema = z.object({
   businessTrade: z.string().min(2, {
@@ -50,7 +50,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
   });
 
   const onSliderChange = (value: any) => {
-    form.setValue('businessPayroll', value);
+    form.setValue("businessPayroll", value);
     onInputChange();
   };
 
@@ -218,34 +218,38 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                         {/*  {...field}*/}
                         {/*/>*/}
                         <Slider
-                            axis="x"
-                            xmin={0}
-                            xmax={1000000}
-                            xstep={1000} // Optional: this sets the step between each value
-                            x={form.watch('businessPayroll')}
-                            onChange={({x}) => onSliderChange(x)}
-                            styles={{
-                              track: {
-                                backgroundColor: '#ddd',
-                                width: '100%',
-                              },
-                              active: {
-                                backgroundColor: '#4632d8',
-                              },
-                              thumb: {
-                                width: 20,
-                                height: 20,
-                                backgroundColor: '#4632d8',
-                              },
-                            }}
+                          axis="x"
+                          xmin={0}
+                          xmax={1000000}
+                          xstep={1000} // Optional: this sets the step between each value
+                          x={form.watch("businessPayroll")}
+                          onChange={({ x }) => onSliderChange(x)}
+                          styles={{
+                            track: {
+                              backgroundColor: "#ddd",
+                              width: "100%",
+                            },
+                            active: {
+                              backgroundColor: "#4632d8",
+                            },
+                            thumb: {
+                              width: 20,
+                              height: 20,
+                              backgroundColor: "#4632d8",
+                            },
+                          }}
                         />
                       </FormControl>
                       <div className="slider-labels pt-2">
                         <div className="payroll-min">$0</div>
-                        <div className="payroll-value text-purple-2"><b>${form.watch('businessPayroll').toLocaleString()}</b></div>
+                        <div className="payroll-value text-purple-2">
+                          <b>
+                            ${form.watch("businessPayroll").toLocaleString()}
+                          </b>
+                        </div>
                         <div className="payroll-max">$1,000,000</div>
                       </div>
-                      <FormMessage className="form-message mt-500"/>
+                      <FormMessage className="form-message mt-500" />
                     </div>
                     <p
                       className="flex flex-row cursor-pointer underline underline-offset-4 text-blue-1"
@@ -282,6 +286,27 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
             </div>
           </form>
         </Form>
+
+        <div className="flex flex-col items-center pt-12 w-full">
+          <Link
+            href="https://www.simplybusiness.com/business-insurance/workers-compensation-insurance/"
+            className="w-full"
+          >
+            <Button
+              className="form-btn-2 px-24 w-full text-white flex"
+              type="submit"
+            >
+              <p className="text-white">Start Quote Now</p>
+              <Image
+                src="whiteRightArrow.svg"
+                alt="arrow right"
+                height={30}
+                width={30}
+                className="pl-2"
+              />
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );
