@@ -23,6 +23,7 @@ const Home = () => {
                   <li className="message-smile">Insure</li>
                 </ul>
                 <Button
+                {/* <Button
                   className="mt-6 text-26 rounded border border-white bg-white font-semibold text-blue-2 shadow-form py-8 px-8"
                   type="submit"
                 >
@@ -35,6 +36,7 @@ const Home = () => {
                     className="ml-4"
                   />
                 </Button>
+                </Button> */}
               </div>
               <div className="right-content">
                 <img
@@ -47,13 +49,9 @@ const Home = () => {
         </div>
       </div>
 
-      {/* <section className="home-header flex flex-col justify-between"> */}
-      {/* <div className="home-content"> */}
       <div className="-mt-20">
         <PremiumEstimator />
       </div>
-      {/* </div> */}
-      {/* </section> */}
     </div>
   );
 };

@@ -28,7 +28,7 @@ const formSchema = z.object({
   }),
 });
 
-const PremiumEstimator = () => {
+const PremiumCalculator = () => {
   const [coverageEstimate, setCoverageEstimate] = useState(0);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,7 +50,7 @@ const PremiumEstimator = () => {
     <section className="flex flex-col items-center">
       <div className="w-1/2 xl:w-1/3 bg-white p-16 rounded-3xl">
         <header className="home-header items-center w-full text-36 pb-12">
-          Comp Quick - Premium Estimator
+          Premium Calculator
         </header>
         <Form {...form}>
           <form
@@ -64,7 +64,7 @@ const PremiumEstimator = () => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label pb-2">
-                      What does your business do?
+                      question 1
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -88,7 +88,7 @@ const PremiumEstimator = () => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label pb-2">
-                      What state is your business in?
+                      question 2
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -112,7 +112,7 @@ const PremiumEstimator = () => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label pb-2">
-                      What is your estimated annual payroll?
+                      question 3
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -151,4 +151,4 @@ const PremiumEstimator = () => {
   );
 };
 
-export default PremiumEstimator;
+export default PremiumCalculator;
