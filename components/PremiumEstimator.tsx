@@ -49,7 +49,13 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
     },
   });
 
-  const onInputChange = (event: any) => {
+  const onSliderChange = (value: any) => {
+    form.setValue('businessPayroll', value);
+    onInputChange();
+  };
+
+  const onInputChange = () => {
+    console.log(form.getValues());
     let rate = {
       Restaurants: {
         "New Mexico": "0.9",
@@ -217,7 +223,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                             xmax={250000}
                             xstep={1000} // Optional: this sets the step between each value
                             x={form.watch('businessPayroll')}
-                            onChange={({x}) => form.setValue('businessPayroll', x)}
+                            onChange={({x}) => onSliderChange(x)}
                             styles={{
                               track: {
                                 backgroundColor: '#ddd',
