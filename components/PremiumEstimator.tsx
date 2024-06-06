@@ -220,7 +220,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                         <Slider
                             axis="x"
                             xmin={0}
-                            xmax={250000}
+                            xmax={1000000}
                             xstep={1000} // Optional: this sets the step between each value
                             x={form.watch('businessPayroll')}
                             onChange={({x}) => onSliderChange(x)}
@@ -241,7 +241,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                       </FormControl>
                       <div className="slider-labels">
                         <div className="payroll-min">$0</div>
-                        <div className="payroll-max">$250,000</div>
+                        <div className="payroll-max">$1,000,000</div>
                       </div>
                       <div className="payroll-value">${form.watch('businessPayroll').toLocaleString()}</div>
                       <FormMessage className="form-message mt-2"/>
