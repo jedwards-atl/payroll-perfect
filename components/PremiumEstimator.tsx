@@ -52,14 +52,14 @@ const PremiumEstimator = () => {
       'Carpentry': { 'New Mexico': '3.47', 'Idaho': '3.47', 'Georgia': '3.47', 'Alabama': '3.47'}
     }
 
-    let trade_rate = rate[form.getValues('businessTrade')]
+    let trade_rate = rate[form.getValues('businessTrade') as keyof typeof rate];
     if (trade_rate) {
-      let state_rate = trade_rate[form.getValues('businessState')]
+      let state_rate = trade_rate[form.getValues('businessState') as keyof typeof trade_rate];
       if (state_rate) {
-        coverage_estimate = Math.ceil(((form.getValues('businessPayroll') * state_rate) / 100) / 12)
+        coverage_estimate = Math.ceil(((form.getValues('businessPayroll') * parseFloat(state_rate)) / 100) / 12);
       }
 
-      console.log(form.getValues('businessPayroll'))
+      console.log(form.getValues('businessPayroll'));
     }
 
     setCoverageEstimate(coverage_estimate)
