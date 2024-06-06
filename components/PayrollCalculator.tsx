@@ -106,7 +106,6 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="ex: 21"
                           className="input-class"
                           {...field}
                         />
@@ -134,7 +133,6 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="ex: 6"
                           className="input-class"
                           {...field}
                         />
@@ -162,7 +160,6 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="ex: 200,000"
                           className="input-class"
                           {...field}
                         />
@@ -189,7 +186,6 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="ex: 40"
                           className="input-class"
                           {...field}
                         />
