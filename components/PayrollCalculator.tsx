@@ -31,7 +31,11 @@ const formSchema = z.object({
   }),
 });
 
-const PremiumEstimator = () => {
+interface Props {
+  toggleCalculator: () => void;
+}
+
+const PremiumEstimator = ({ toggleCalculator }: Props) => {
   const [coverageEstimate, setCoverageEstimate] = useState(0);
   const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
 
@@ -50,15 +54,33 @@ const PremiumEstimator = () => {
     setCoverageEstimate(payrollNumber);
   }
 
-  function setPayrollFromCalc(num: number) {
-    form.setValue("businessPayroll", num);
+  function setPayrollFromCalc() {
+    toggleCalculator();
   }
 
   return (
     <section className="flex flex-col items-center">
-      <div className="w-1/2 xl:w-1/3 bg-red-400 p-16 rounded-3xl">
-        <header className="home-header items-center w-full text-36 pb-12">
+      <div className="w-1/2 xl:w-1/3 bg-purple-2 p-16 rounded-3xl">
+        <div className="flex flex-col items-end">
+          <Image
+            className="cursor-pointer"
+            src="darkRefresh.svg"
+            alt="back to premium estimator"
+            height={30}
+            width={30}
+            onClick={() => setPayrollFromCalc()}
+          />
+        </div>
+        <header className="home-header text-white items-center w-full text-36 pb-12">
           Payroll Calculator
+          <div className="flex flex-col items-center">
+            <Image
+              src="darkUnderline.svg"
+              alt="underline"
+              height={30}
+              width={200}
+            />
+          </div>
         </header>
         <Form {...form}>
           <form
@@ -71,7 +93,7 @@ const PremiumEstimator = () => {
                 name="businessTrade"
                 render={({ field }) => (
                   <div className="form-item">
-                    <FormLabel className="form-label pb-2">
+                    <FormLabel className="form-label-2 pb-2">
                       What does your business do?
                     </FormLabel>
                     <div className="w-full flex flex-col">
@@ -84,7 +106,7 @@ const PremiumEstimator = () => {
                         />
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
-                      <p className="flex flex-row text-white">
+                      <p className="flex flex-row text-white text-14 pt-2">
                         Need help estimating your payroll?
                       </p>
                     </div>
@@ -98,7 +120,7 @@ const PremiumEstimator = () => {
                 name="businessState"
                 render={({ field }) => (
                   <div className="form-item">
-                    <FormLabel className="form-label pb-2">
+                    <FormLabel className="form-label-2 pb-2">
                       What state is your business in?
                     </FormLabel>
                     <div className="w-full flex flex-col">
@@ -111,7 +133,7 @@ const PremiumEstimator = () => {
                         />
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
-                      <p className="flex flex-row text-white">
+                      <p className="flex flex-row text-white text-14 pt-2">
                         Need help estimating your payroll?
                       </p>
                     </div>
@@ -125,7 +147,7 @@ const PremiumEstimator = () => {
                 name="businessPayroll"
                 render={({ field }) => (
                   <div className="form-item">
-                    <FormLabel className="form-label pb-2">
+                    <FormLabel className="form-label-2 pb-2">
                       What is your estimated annual payroll?
                     </FormLabel>
                     <div className="w-full flex flex-col">
@@ -138,23 +160,17 @@ const PremiumEstimator = () => {
                         />
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
+                      <p className="flex flex-row text-white text-14 pt-2">
+                        Need help estimating your payroll?
+                      </p>
                     </div>
-                    <p className="flex flex-row text-white">
-                      Need help estimating your payroll?
-                    </p>
                   </div>
                 )}
               />
             </div>
 
-            <div className="flex flex-col items-center">
-              <Button className="form-btn py-4 px-8" type="submit">
-                Submit
-              </Button>
-            </div>
-
             <div className="border rounded-lg border-gray-1 p-12 flex flex-col items-center">
-              <p className="form-label pb-8 text-center w-full">
+              <p className="form-label-2 pb-8 text-center w-full">
                 Coverage starting at
               </p>
               <p className="text-92 w-full font-medium text-gray-1  text-center">
@@ -163,6 +179,16 @@ const PremiumEstimator = () => {
             </div>
           </form>
         </Form>
+
+        <div className="flex flex-col items-center pt-12 w-full">
+          <Button
+            className="form-btn-2 py-4 px-8 w-full"
+            type="submit"
+            onClick={() => setPayrollFromCalc()}
+          >
+            Back to Premium Estimator
+          </Button>
+        </div>
       </div>
     </section>
   );

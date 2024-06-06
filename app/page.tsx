@@ -42,9 +42,9 @@ const Home = () => {
 
       <div className="-mt-20">
         {showPayrollCalculator ? (
-          <PayrollCalculator />
+          <PayrollCalculator toggleCalculator={handleSetPayrollCalculator} />
         ) : (
-          <PremiumEstimator showCalculator={handleSetPayrollCalculator} />
+          <PremiumEstimator toggleCalculator={handleSetPayrollCalculator} />
         )}
       </div>
     </div>

@@ -32,10 +32,10 @@ const formSchema = z.object({
 });
 
 interface Props {
-  showCalculator: () => void;
+  toggleCalculator: () => void;
 }
 
-const PremiumEstimator = ({ showCalculator }: Props) => {
+const PremiumEstimator = ({ toggleCalculator }: Props) => {
   const [coverageEstimateLow, setCoverageEstimateLow] = useState(0);
   const [coverageEstimateHigh, setCoverageEstimateHigh] = useState(0);
 
@@ -108,14 +108,32 @@ const PremiumEstimator = ({ showCalculator }: Props) => {
   };
 
   function setPayrollFromCalc() {
-    showCalculator();
+    toggleCalculator();
   }
 
   return (
     <section className="flex flex-col items-center">
       <div className="w-1/2 xl:w-1/3 bg-white p-16 rounded-3xl">
+        <div className="flex flex-col items-end">
+          <Image
+            className="cursor-pointer"
+            src="lightRefresh.svg"
+            alt="back to premium estimator"
+            height={30}
+            width={30}
+            onClick={() => setPayrollFromCalc()}
+          />
+        </div>
         <header className="home-header items-center w-full text-36 pb-12">
           Premium Estimator
+          <div className="flex flex-col items-center">
+            <Image
+              src="lightUnderline.svg"
+              alt="underline"
+              height={30}
+              width={200}
+            />
+          </div>
         </header>
         <Form {...form}>
           <form
