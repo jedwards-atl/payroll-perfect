@@ -103,6 +103,9 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
 
         setCoverageEstimateLow(coverage_estimate_low);
         setCoverageEstimateHigh(coverage_estimate_high);
+      } else {
+        setCoverageEstimateLow(0);
+        setCoverageEstimateHigh(0);
       }
     }
   };
@@ -124,7 +127,9 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
             onClick={() => setPayrollFromCalc()}
           />
         </div>
-        <header className="home-header items-center w-full text-36 pb-12">
+        <header className="home-header items-center w-full text-36 pb-12 text-center">
+          Comp Quick
+          <br />
           Premium Estimator
           <div className="flex flex-col items-center">
             <Image
@@ -229,9 +234,15 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                   <p className="form-label pb-8 text-center w-full">
                     Coverage starting at
                   </p>
-                  <p className="text-92 w-full font-medium text-gray-1  text-center">
-                    ${coverageEstimateLow} - ${coverageEstimateHigh}/Month
-                  </p>
+                  {coverageEstimateLow === coverageEstimateHigh ? (
+                    <p className="text-36 w-full font-medium text-gray-1  text-center">
+                      ${coverageEstimateLow}/Month
+                    </p>
+                  ) : (
+                    <p className="text-36 w-full font-medium text-gray-1  text-center">
+                      ${coverageEstimateLow} - ${coverageEstimateHigh}/Month
+                    </p>
+                  )}
                 </div>
               )}
             </div>
