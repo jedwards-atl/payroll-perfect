@@ -310,6 +310,13 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
             </Button>
           </Link>
         </div>
+        <div className="legal-disclaimer">
+          <p>
+            These price ranges are an estimate based on your trade, state, and payroll.
+          </p>
+          <p>Please continue to your quote to get your finalized price!</p>
+        </div>
+
       </div>
     </section>
   );
