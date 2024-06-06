@@ -299,7 +299,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
               className="form-btn-2 px-24 w-full text-white flex"
               type="submit"
             >
-              <p className="text-white">Start Quote Now</p>
+              <p className="text-white">Start your quote</p>
               <Image
                 src="whiteRightArrow.svg"
                 alt="arrow right"
