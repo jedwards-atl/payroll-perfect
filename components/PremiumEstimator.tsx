@@ -36,8 +36,8 @@ interface Props {
 }
 
 const PremiumEstimator = ({ showCalculator }: Props) => {
-  const [coverageEstimate, setCoverageEstimate] = useState(0);
-  // const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
+  const [coverageEstimateLow, setCoverageEstimateLow] = useState(0);
+  const [coverageEstimateHigh, setCoverageEstimateHigh] = useState(0);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,11 +48,64 @@ const PremiumEstimator = ({ showCalculator }: Props) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    const payrollNumber = Number(values.businessPayroll);
-    setCoverageEstimate(payrollNumber);
-  }
+  const onInputChange = (event: any) => {
+    let rate = {
+      Restaurants: {
+        "New Mexico": "0.9",
+        Idaho: "0.9",
+        Georgia: "0.9",
+        Alabama: "0.9",
+      },
+      Plumbing: {
+        "New Mexico": "2.52",
+        Idaho: "2.52",
+        Georgia: "2.52",
+        Alabama: "2.52",
+      },
+      Dentistry: {
+        "New Mexico": "0.2",
+        Idaho: "0.2",
+        Georgia: "0.2",
+        Alabama: "0.2",
+      },
+      Carpentry: {
+        "New Mexico": "3.47",
+        Idaho: "3.47",
+        Georgia: "3.47",
+        Alabama: "3.47",
+      },
+    };
+
+    let trade_rate = rate[form.getValues("businessTrade") as keyof typeof rate];
+    if (trade_rate) {
+      let state_rate =
+        trade_rate[form.getValues("businessState") as keyof typeof trade_rate];
+      if (state_rate) {
+        const coverage_estimate_year =
+          (form.getValues("businessPayroll") * parseFloat(state_rate)) / 100;
+        const percentage_variance =
+          coverage_estimate_year < 1000
+            ? 0.15
+            : coverage_estimate_year < 2000
+            ? 0.1
+            : 0.05;
+        // Make +/-15% range on on less than 1k
+        // Make +/-10% range on 1k-1.9k
+        // Make +/- 5% range on estimate 2k or
+
+        const monthly_coverage = coverage_estimate_year / 12;
+        const coverage_estimate_low = Math.ceil(
+          monthly_coverage - monthly_coverage * percentage_variance
+        );
+        const coverage_estimate_high = Math.ceil(
+          monthly_coverage + monthly_coverage * percentage_variance
+        );
+
+        setCoverageEstimateLow(coverage_estimate_low);
+        setCoverageEstimateHigh(coverage_estimate_high);
+      }
+    }
+  };
 
   function setPayrollFromCalc() {
     showCalculator();
@@ -66,7 +119,7 @@ const PremiumEstimator = ({ showCalculator }: Props) => {
         </header>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onChange={(e) => onInputChange(e)}
             className="space-y-12 gap-12"
           >
             <div className="border rounded-lg border-gray-1 p-8">
@@ -148,19 +201,21 @@ const PremiumEstimator = ({ showCalculator }: Props) => {
               />
             </div>
 
-            <div className="flex flex-col items-center">
-              <Button className="form-btn py-4 px-8" type="submit">
-                Submit
-              </Button>
-            </div>
-
             <div className="border rounded-lg border-gray-1 p-12 flex flex-col items-center">
-              <p className="form-label pb-8 text-center w-full">
-                Coverage starting at
-              </p>
-              <p className="text-92 w-full font-medium text-gray-1  text-center">
-                ${coverageEstimate}/Month
-              </p>
+              {coverageEstimateLow === 0 && coverageEstimateHigh === 0 ? (
+                <p className="form-label pb-8 text-center w-full">
+                  Estimating your premium...
+                </p>
+              ) : (
+                <div>
+                  <p className="form-label pb-8 text-center w-full">
+                    Coverage starting at
+                  </p>
+                  <p className="text-92 w-full font-medium text-gray-1  text-center">
+                    ${coverageEstimateLow} - ${coverageEstimateHigh}/Month
+                  </p>
+                </div>
+              )}
             </div>
           </form>
         </Form>
