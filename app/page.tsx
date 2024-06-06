@@ -6,10 +6,14 @@ import React, { useState } from "react";
 import ReactCardFlip from 'react-card-flip';
 
 const Home = () => {
-  const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [payroll, setPayroll] = useState(0);
 
-  function handleSetPayrollCalculator() {
-    setShowPayrollCalculator(!showPayrollCalculator);
+  function handleSetPayrollCalculator(new_payroll: number) {
+    setIsFlipped(!isFlipped);
+    if (new_payroll > 0) {
+      setPayroll(new_payroll);
+    }
   }
 
   return (
@@ -41,8 +45,8 @@ const Home = () => {
         </div>
       </div>
       <div className="-mt-64">
-        <ReactCardFlip isFlipped={showPayrollCalculator} flipDirection="horizontal" infinite={false}>
-          <PremiumEstimator toggleCalculator={handleSetPayrollCalculator} />
+        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal" infinite={false}>
+          <PremiumEstimator toggleCalculator={handleSetPayrollCalculator} payroll={payroll}/>
           <PayrollCalculator toggleCalculator={handleSetPayrollCalculator} />
         </ReactCardFlip>
       </div>

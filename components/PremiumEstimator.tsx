@@ -16,8 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
-import PayrollCalculator from "./PayrollCalculator";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-input-slider";
 
 const formSchema = z.object({
@@ -33,29 +32,33 @@ const formSchema = z.object({
 });
 
 interface Props {
-  toggleCalculator: () => void;
+  toggleCalculator: (payrollAmount: number) => void;
+  payroll: number;
 }
 
-const PremiumEstimator = ({ toggleCalculator }: Props) => {
+const PremiumEstimator = ({ toggleCalculator, payroll }: Props) => {
   const [coverageEstimateLow, setCoverageEstimateLow] = useState(0);
   const [coverageEstimateHigh, setCoverageEstimateHigh] = useState(0);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    values: {
       businessTrade: "",
       businessState: "",
-      businessPayroll: 0,
+      businessPayroll: payroll,
     },
   });
 
-  const onSliderChange = (value: any) => {
-    form.setValue("businessPayroll", value);
+  useEffect(() => {
+    form.setValue("businessPayroll", payroll);
+  }, [payroll]);
+
+  const onSliderChange = (newValue: number) => {
+    form.setValue("businessPayroll", newValue);
     onInputChange();
   };
 
   const onInputChange = () => {
-    console.log(form.getValues());
     let rate = {
       Restaurants: {
         "New Mexico": "0.9",
@@ -118,7 +121,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
   };
 
   function setPayrollFromCalc() {
-    toggleCalculator();
+    toggleCalculator(0);
   }
 
   return (
@@ -149,7 +152,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
         </header>
         <Form {...form}>
           <form
-            onChange={(e) => onInputChange(e)}
+            onChange={(e) => onInputChange()}
             className="space-y-12 gap-12"
           >
             <div className="border rounded-lg border-gray-1 p-8">
@@ -211,12 +214,6 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
-                        {/*<Input*/}
-                        {/*  type="number"*/}
-                        {/*  placeholder="ex: 200,000"*/}
-                        {/*  className="input-class"*/}
-                        {/*  {...field}*/}
-                        {/*/>*/}
                         <Slider
                           axis="x"
                           xmin={0}

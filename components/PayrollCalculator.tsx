@@ -26,7 +26,7 @@ const formSchema = z.object({
 });
 
 interface Props {
-  toggleCalculator: () => void;
+  toggleCalculator: (payrollAmount: number) => void;
 }
 
 const PayrollCalculator = ({ toggleCalculator }: Props) => {
@@ -50,7 +50,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
   }
 
   function setPayrollFromCalc() {
-    toggleCalculator();
+    toggleCalculator(payrollAmount);
   }
 
   const calcPayroll = () => {
