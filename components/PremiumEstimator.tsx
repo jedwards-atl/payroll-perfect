@@ -255,7 +255,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                       className="flex flex-row cursor-pointer underline underline-offset-4 text-blue-1"
                       onClick={() => setPayrollFromCalc()}
                     >
-                      Payroll Calculators
+                      Payroll Calculator
                     </p>
                   </div>
                 )}
@@ -312,7 +312,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
         </div>
         <div className="legal-disclaimer">
           <p>
-            These price ranges are an estimate based on your trade, state, and payroll.
+            Prices shown are an estimate based on your trade, state, and payroll.
           </p>
           <p>Please continue to your quote to get your finalized price!</p>
         </div>
