@@ -268,20 +268,23 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                   Please enter your business information above
                 </p>
               ) : (
-                <div>
-                  <p className="form-label pb-8 text-center w-full">
-                    Workers' Comp Insurance
-                  </p>
-                  {coverageEstimateLow === coverageEstimateHigh ? (
-                    <p className="text-36 w-full font-medium text-purple-2  text-center">
-                      ${coverageEstimateLow}
+                  <div>
+                    <p className="form-label pb-8 text-center w-full wc-title">
+                      Workers' Comp Insurance
                     </p>
-                  ) : (
-                    <p className="text-36 w-full font-medium text-purple-2  text-center">
-                      ${coverageEstimateLow} - ${coverageEstimateHigh}
+                    <p className="form-label pb-8 text-center w-full wc-subtitle">
+                      Monthly prices ranging from
                     </p>
-                  )}
-                </div>
+                    {coverageEstimateLow === coverageEstimateHigh ? (
+                        <p className="text-36 w-full font-medium text-purple-2  text-center">
+                          ${coverageEstimateLow}
+                        </p>
+                    ) : (
+                        <p className="text-36 w-full font-medium text-purple-2  text-center">
+                          ${coverageEstimateLow} - ${coverageEstimateHigh}
+                        </p>
+                    )}
+                  </div>
               )}
             </div>
           </form>
