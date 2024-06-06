@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import PayrollCalculator from "./PayrollCalculator";
 
 const formSchema = z.object({
   businessTrade: z.string().min(2, {
@@ -28,8 +31,13 @@ const formSchema = z.object({
   }),
 });
 
-const PremiumEstimator = () => {
+interface Props {
+  showCalculator: () => void;
+}
+
+const PremiumEstimator = ({ showCalculator }: Props) => {
   const [coverageEstimate, setCoverageEstimate] = useState(0);
+  // const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,11 +54,15 @@ const PremiumEstimator = () => {
     setCoverageEstimate(payrollNumber);
   }
 
+  function setPayrollFromCalc() {
+    showCalculator();
+  }
+
   return (
     <section className="flex flex-col items-center">
       <div className="w-1/2 xl:w-1/3 bg-white p-16 rounded-3xl">
         <header className="home-header items-center w-full text-36 pb-12">
-          Comp Quick - Premium Estimator
+          Premium Estimator
         </header>
         <Form {...form}>
           <form
@@ -125,6 +137,12 @@ const PremiumEstimator = () => {
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
                     </div>
+                    <p
+                      className="flex flex-row cursor-pointer underline underline-offset-4 text-blue-1"
+                      onClick={() => setPayrollFromCalc()}
+                    >
+                      Payroll Assistance
+                    </p>
                   </div>
                 )}
               />

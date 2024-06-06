@@ -49,6 +49,10 @@
     @apply text-16 placeholder:text-16 rounded border-2 border-purple-1 text-gray-900 placeholder:text-gray-500 focus-visible:ring-transparent;
   }
 
+  .input-class-calc {
+    @apply text-16 placeholder:text-16 rounded border border-gray-1 text-gray-900 placeholder:text-gray-500 focus-visible:ring-transparent;
+  }
+
   .text14_padding10 {
     @apply text-14 px-4 py-2.5 font-semibold;
   }

@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import PayrollCalculator from "./PayrollCalculator";
 
 const formSchema = z.object({
   businessTrade: z.string().min(2, {
@@ -28,8 +31,9 @@ const formSchema = z.object({
   }),
 });
 
-const PremiumCalculator = () => {
+const PremiumEstimator = () => {
   const [coverageEstimate, setCoverageEstimate] = useState(0);
+  const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,11 +50,15 @@ const PremiumCalculator = () => {
     setCoverageEstimate(payrollNumber);
   }
 
+  function setPayrollFromCalc(num: number) {
+    form.setValue("businessPayroll", num);
+  }
+
   return (
     <section className="flex flex-col items-center">
-      <div className="w-1/2 xl:w-1/3 bg-white p-16 rounded-3xl">
+      <div className="w-1/2 xl:w-1/3 bg-red-400 p-16 rounded-3xl">
         <header className="home-header items-center w-full text-36 pb-12">
-          Premium Calculator
+          Payroll Calculator
         </header>
         <Form {...form}>
           <form
@@ -64,7 +72,7 @@ const PremiumCalculator = () => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label pb-2">
-                      question 1
+                      What does your business do?
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -76,6 +84,9 @@ const PremiumCalculator = () => {
                         />
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
+                      <p className="flex flex-row text-white">
+                        Need help estimating your payroll?
+                      </p>
                     </div>
                   </div>
                 )}
@@ -88,7 +99,7 @@ const PremiumCalculator = () => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label pb-2">
-                      question 2
+                      What state is your business in?
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -100,6 +111,9 @@ const PremiumCalculator = () => {
                         />
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
+                      <p className="flex flex-row text-white">
+                        Need help estimating your payroll?
+                      </p>
                     </div>
                   </div>
                 )}
@@ -112,7 +126,7 @@ const PremiumCalculator = () => {
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label pb-2">
-                      question 3
+                      What is your estimated annual payroll?
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -125,6 +139,9 @@ const PremiumCalculator = () => {
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
                     </div>
+                    <p className="flex flex-row text-white">
+                      Need help estimating your payroll?
+                    </p>
                   </div>
                 )}
               />
@@ -151,4 +168,4 @@ const PremiumCalculator = () => {
   );
 };
 
-export default PremiumCalculator;
+export default PremiumEstimator;
