@@ -14,10 +14,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import PayrollCalculator from "./PayrollCalculator";
+import React, { useState } from "react";
+import Slider from 'react-input-slider';
 
 const formSchema = z.object({
   businessTrade: z.string().min(2, {
@@ -204,14 +205,40 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="ex: 200,000"
-                          className="input-class"
-                          {...field}
+                        {/*<Input*/}
+                        {/*  type="number"*/}
+                        {/*  placeholder="ex: 200,000"*/}
+                        {/*  className="input-class"*/}
+                        {/*  {...field}*/}
+                        {/*/>*/}
+                        <Slider
+                            axis="x"
+                            xmin={0}
+                            xmax={100000}
+                            xstep={100} // Optional: this sets the step between each value
+                            x={form.watch('businessPayroll')}
+                            onChange={({x}) => form.setValue('businessPayroll', x)}
+                            styles={{
+                              track: {
+                                backgroundColor: '#ddd',
+                                width: '100%',
+                              },
+                              active: {
+                                backgroundColor: '#4632d8',
+                              },
+                              thumb: {
+                                width: 20,
+                                height: 20,
+                              },
+                            }}
                         />
                       </FormControl>
-                      <FormMessage className="form-message mt-2" />
+                      <div className="slider-labels">
+                        <div className="payroll-min">0</div>
+                        <div className="payroll-max">100,000</div>
+                      </div>
+                      <div className="payroll-value">{form.watch('businessPayroll').toLocaleString()}</div>
+                      <FormMessage className="form-message mt-2"/>
                     </div>
                     <p
                       className="flex flex-row cursor-pointer underline underline-offset-4 text-blue-1"

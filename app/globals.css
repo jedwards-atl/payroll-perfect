@@ -241,4 +241,14 @@
   li.message-smile {
     background: url("/message-smile-icon.png") no-repeat left top;
   }
+
+  .slider-labels {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+
+  .payroll-value {
+    margin: auto;
+  }
 }
