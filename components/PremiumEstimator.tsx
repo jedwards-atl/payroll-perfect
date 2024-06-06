@@ -247,7 +247,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                             ${form.watch("businessPayroll").toLocaleString()}
                           </b>
                         </div>
-                        <div className="payroll-max">$1,000,000</div>
+                        <div className="payroll-max">$1M</div>
                       </div>
                       <FormMessage className="form-message mt-500" />
                     </div>
