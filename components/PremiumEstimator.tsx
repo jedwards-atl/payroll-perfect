@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import PayrollCalculator from "./PayrollCalculator";
 
 const formSchema = z.object({
   businessTrade: z.string().min(2, {
@@ -28,7 +31,11 @@ const formSchema = z.object({
   }),
 });
 
-const PremiumEstimator = () => {
+interface Props {
+  showCalculator: () => void;
+}
+
+const PremiumEstimator = ({ showCalculator }: Props) => {
   const [coverageEstimateLow, setCoverageEstimateLow] = useState(0);
   const [coverageEstimateHigh, setCoverageEstimateHigh] = useState(0);
 
@@ -43,25 +50,56 @@ const PremiumEstimator = () => {
 
   const onInputChange = (event: any) => {
     let rate = {
-      'Restaurants': { 'New Mexico': '0.9', 'Idaho': '0.9', 'Georgia': '0.9', 'Alabama': '0.9'},
-      'Plumbing': { 'New Mexico': '2.52', 'Idaho': '2.52', 'Georgia': '2.52', 'Alabama': '2.52'},
-      'Dentistry': { 'New Mexico': '0.2', 'Idaho': '0.2', 'Georgia': '0.2', 'Alabama': '0.2'},
-      'Carpentry': { 'New Mexico': '3.47', 'Idaho': '3.47', 'Georgia': '3.47', 'Alabama': '3.47'}
-    }
+      Restaurants: {
+        "New Mexico": "0.9",
+        Idaho: "0.9",
+        Georgia: "0.9",
+        Alabama: "0.9",
+      },
+      Plumbing: {
+        "New Mexico": "2.52",
+        Idaho: "2.52",
+        Georgia: "2.52",
+        Alabama: "2.52",
+      },
+      Dentistry: {
+        "New Mexico": "0.2",
+        Idaho: "0.2",
+        Georgia: "0.2",
+        Alabama: "0.2",
+      },
+      Carpentry: {
+        "New Mexico": "3.47",
+        Idaho: "3.47",
+        Georgia: "3.47",
+        Alabama: "3.47",
+      },
+    };
 
-    let trade_rate = rate[form.getValues('businessTrade') as keyof typeof rate];
+    let trade_rate = rate[form.getValues("businessTrade") as keyof typeof rate];
     if (trade_rate) {
-      let state_rate = trade_rate[form.getValues('businessState') as keyof typeof trade_rate];
+      let state_rate =
+        trade_rate[form.getValues("businessState") as keyof typeof trade_rate];
       if (state_rate) {
-        const coverage_estimate_year = form.getValues('businessPayroll') * parseFloat(state_rate) / 100;
-        const percentage_variance = coverage_estimate_year < 1000 ? 0.15 : coverage_estimate_year < 2000 ? 0.1 : 0.05;
+        const coverage_estimate_year =
+          (form.getValues("businessPayroll") * parseFloat(state_rate)) / 100;
+        const percentage_variance =
+          coverage_estimate_year < 1000
+            ? 0.15
+            : coverage_estimate_year < 2000
+            ? 0.1
+            : 0.05;
         // Make +/-15% range on on less than 1k
         // Make +/-10% range on 1k-1.9k
         // Make +/- 5% range on estimate 2k or
 
         const monthly_coverage = coverage_estimate_year / 12;
-        const coverage_estimate_low = Math.ceil(monthly_coverage - (monthly_coverage * percentage_variance))
-        const coverage_estimate_high = Math.ceil(monthly_coverage + (monthly_coverage * percentage_variance))
+        const coverage_estimate_low = Math.ceil(
+          monthly_coverage - monthly_coverage * percentage_variance
+        );
+        const coverage_estimate_high = Math.ceil(
+          monthly_coverage + monthly_coverage * percentage_variance
+        );
 
         setCoverageEstimateLow(coverage_estimate_low)
         setCoverageEstimateHigh(coverage_estimate_high)
@@ -70,6 +108,10 @@ const PremiumEstimator = () => {
         setCoverageEstimateHigh(0)
       }
     }
+  };
+
+  function setPayrollFromCalc() {
+    showCalculator();
   }
 
   return (
@@ -153,6 +195,12 @@ const PremiumEstimator = () => {
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
                     </div>
+                    <p
+                      className="flex flex-row cursor-pointer underline underline-offset-4 text-blue-1"
+                      onClick={() => setPayrollFromCalc()}
+                    >
+                      Payroll Assistance
+                    </p>
                   </div>
                 )}
               />

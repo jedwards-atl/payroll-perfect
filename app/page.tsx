@@ -1,9 +1,16 @@
 "use client";
 
+import PayrollCalculator from "@/components/PayrollCalculator";
 import PremiumEstimator from "@/components/PremiumEstimator";
-import React from "react";
+import React, { useState } from "react";
 
 const Home = () => {
+  const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
+
+  function handleSetPayrollCalculator() {
+    setShowPayrollCalculator(!showPayrollCalculator);
+  }
+
   return (
     <div className="bg-gray-200 pb-20">
       <div className="bg-blue-1 px-20 pt-32 pb-44">
@@ -34,7 +41,11 @@ const Home = () => {
       </div>
 
       <div className="-mt-20">
-        <PremiumEstimator />
+        {showPayrollCalculator ? (
+          <PayrollCalculator />
+        ) : (
+          <PremiumEstimator showCalculator={handleSetPayrollCalculator} />
+        )}
       </div>
     </div>
   );
