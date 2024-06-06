@@ -17,41 +17,36 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import PayrollCalculator from "./PayrollCalculator";
 
 const formSchema = z.object({
-  businessTrade: z.string().min(2, {
-    message: "Must be applicable business trade.",
-  }),
-  businessState: z.string().min(2, {
-    message: "Must be applicable state.",
-  }),
-  businessPayroll: z.coerce.number().int().positive().min(1, {
-    message: "Must be a positive number.",
-  }),
+  hourlyWage: z.coerce.number().optional(),
+  employeeCount: z.coerce.number().optional(),
+  hoursPerWeekPerEmployee: z.coerce.number().optional(),
+  weeksOpenPerYear: z.coerce.number().optional(),
 });
 
 interface Props {
   toggleCalculator: () => void;
 }
 
-const PremiumEstimator = ({ toggleCalculator }: Props) => {
-  const [coverageEstimate, setCoverageEstimate] = useState(0);
-  const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
+const PayrollCalculator = ({ toggleCalculator }: Props) => {
+  const [payrollAmount, setPayrollAmount] = useState(0);
+  // const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      businessTrade: "",
-      businessState: "",
-      businessPayroll: 0,
+      hourlyWage: 0,
+      employeeCount: 0,
+      hoursPerWeekPerEmployee: 0,
+      weeksOpenPerYear: 0,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    const payrollNumber = Number(values.businessPayroll);
-    setCoverageEstimate(payrollNumber);
+    // const payrollNumber = Number(values.businessPayroll);
+    setPayrollAmount(values.employeeCount!);
   }
 
   function setPayrollFromCalc() {
@@ -90,24 +85,25 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
             <div className="border rounded-lg border-gray-1 p-8">
               <FormField
                 control={form.control}
-                name="businessTrade"
+                name="hourlyWage"
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label-2 pb-2">
-                      What does your business do?
+                      Average Hourly Wage Per Employee
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
                         <Input
-                          type="text"
-                          placeholder="ex: accounting, landscaping"
+                          type="number"
+                          placeholder="ex: 21"
                           className="input-class"
                           {...field}
                         />
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
                       <p className="flex flex-row text-white text-14 pt-2">
-                        Need help estimating your payroll?
+                        Based on job duty. For salaried employees, estimate the
+                        hourly rate
                       </p>
                     </div>
                   </div>
@@ -117,24 +113,25 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
             <div className="border rounded-lg border-gray-1 p-8">
               <FormField
                 control={form.control}
-                name="businessState"
+                name="employeeCount"
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label-2 pb-2">
-                      What state is your business in?
+                      Number of Employees
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
                         <Input
-                          type="text"
-                          placeholder="ex: Virginia"
+                          type="number"
+                          placeholder="ex: 6"
                           className="input-class"
                           {...field}
                         />
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
                       <p className="flex flex-row text-white text-14 pt-2">
-                        Need help estimating your payroll?
+                        Do not include owners, officers, subcontractors, or 1099
+                        workers
                       </p>
                     </div>
                   </div>
@@ -144,11 +141,11 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
             <div className="border rounded-lg border-gray-1 p-8">
               <FormField
                 control={form.control}
-                name="businessPayroll"
+                name="hoursPerWeekPerEmployee"
                 render={({ field }) => (
                   <div className="form-item">
                     <FormLabel className="form-label-2 pb-2">
-                      What is your estimated annual payroll?
+                      Estimated Average Hours Worked per Week
                     </FormLabel>
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -161,7 +158,34 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
                       <p className="flex flex-row text-white text-14 pt-2">
-                        Need help estimating your payroll?
+                        Hours worked per week are per employee
+                      </p>
+                    </div>
+                  </div>
+                )}
+              />
+            </div>
+            <div className="border rounded-lg border-gray-1 p-8">
+              <FormField
+                control={form.control}
+                name="weeksOpenPerYear"
+                render={({ field }) => (
+                  <div className="form-item">
+                    <FormLabel className="form-label-2 pb-2">
+                      Estimated number of weeks open for business each year
+                    </FormLabel>
+                    <div className="w-full flex flex-col">
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="ex: 40"
+                          className="input-class"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="form-message mt-2" />
+                      <p className="flex flex-row text-white text-14 pt-2">
+                        Hours worked per week are per employee
                       </p>
                     </div>
                   </div>
@@ -174,7 +198,7 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
                 Coverage starting at
               </p>
               <p className="text-92 w-full font-medium text-gray-1  text-center">
-                ${coverageEstimate}/Month
+                ${payrollAmount}/Month
               </p>
             </div>
           </form>
@@ -194,4 +218,4 @@ const PremiumEstimator = ({ toggleCalculator }: Props) => {
   );
 };
 
-export default PremiumEstimator;
+export default PayrollCalculator;
