@@ -3,8 +3,8 @@ import React from "react";
 
 const Home = () => {
   return (
-    <>
-      <div className="bg-blue-1 p-20">
+    <div className="bg-gray-200 pb-20">
+      <div className="bg-blue-1 px-20 pt-32 pb-44">
         <div className="md:container md:mx-auto coronavirus-cover-lookup">
           <div className="module form">
             <div className="module-content">
@@ -30,14 +30,15 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <section className="home md:container md:mx-auto">
-        <div className="home-content">
-          <div className="flex flex-col items-center">
-            <PremiumEstimator />
-          </div>
-        </div>
-      </section>
-    </>
+
+      {/* <section className="home-header flex flex-col justify-between"> */}
+      {/* <div className="home-content"> */}
+      <div className="-mt-20">
+        <PremiumEstimator />
+      </div>
+      {/* </div> */}
+      {/* </section> */}
+    </div>
   );
 };
 

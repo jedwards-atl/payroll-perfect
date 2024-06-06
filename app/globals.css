@@ -107,7 +107,7 @@
 
   /* Home */
   .home {
-    @apply no-scrollbar flex w-full flex-row max-xl:max-h-screen max-xl:overflow-y-scroll;
+    @apply no-scrollbar flex w-full flex-col max-xl:max-h-screen max-xl:overflow-y-scroll;
   }
 
   .home-content {
@@ -158,7 +158,7 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    background-color: #4632D8;
+    background-color: #4632d8;
     width: 100%;
     font-family: museosans, Arial, sans-serif;
   }
@@ -173,13 +173,12 @@
     display: block; /* Make the pseudo-element a block-level element */
     width: 200%; /* Set the width of the underline */
     height: 15px; /* Set the height of the underline */
-    background: url('/Vector.png') no-repeat;
+    background: url("/Vector.png") no-repeat;
     padding-bottom: 30px;
   }
 
   .left-content h3 {
     padding-bottom: 10px;
-
   }
 
   .left-content {
@@ -207,7 +206,7 @@
   }
 
   .module-content .btn-secondary.small {
-    color: #4632D8; /* Text color */
+    color: #4632d8; /* Text color */
     background-color: white; /* Background color */
   }
 
@@ -219,16 +218,14 @@
   }
 
   li.credit-card {
-    background: url('/credit-card-icon.png') no-repeat left top;
+    background: url("/credit-card-icon.png") no-repeat left top;
   }
 
   li.file-certificate {
-    background: url('/file-certificate-icon.png') no-repeat left top;
+    background: url("/file-certificate-icon.png") no-repeat left top;
   }
 
   li.message-smile {
-    background: url('/message-smile-icon.png') no-repeat left top;
+    background: url("/message-smile-icon.png") no-repeat left top;
   }
-
-
 }
