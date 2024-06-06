@@ -3,6 +3,7 @@
 import PayrollCalculator from "@/components/PayrollCalculator";
 import PremiumEstimator from "@/components/PremiumEstimator";
 import React, { useState } from "react";
+import ReactCardFlip from 'react-card-flip';
 
 const Home = () => {
   const [showPayrollCalculator, setShowPayrollCalculator] = useState(false);
@@ -39,13 +40,11 @@ const Home = () => {
           </div>
         </div>
       </div>
-
       <div className="-mt-64">
-        {showPayrollCalculator ? (
-          <PayrollCalculator toggleCalculator={handleSetPayrollCalculator} />
-        ) : (
+        <ReactCardFlip isFlipped={showPayrollCalculator} flipDirection="horizontal" infinite={false}>
           <PremiumEstimator toggleCalculator={handleSetPayrollCalculator} />
-        )}
+          <PayrollCalculator toggleCalculator={handleSetPayrollCalculator} />
+        </ReactCardFlip>
       </div>
     </div>
   );
