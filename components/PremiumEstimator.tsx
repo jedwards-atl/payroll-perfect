@@ -26,7 +26,7 @@ const formSchema = z.object({
   businessState: z.string().min(2, {
     message: "Must be applicable state.",
   }),
-  businessPayroll: z.coerce.number().int().positive().min(1, {
+  businessPayroll: z.coerce.number().int().positive().min(0, {
     message: "Must be a positive number.",
   }),
 });
