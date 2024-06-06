@@ -39,12 +39,14 @@ interface Props {
 const PremiumEstimator = ({ toggleCalculator, payroll }: Props) => {
   const [coverageEstimateLow, setCoverageEstimateLow] = useState(0);
   const [coverageEstimateHigh, setCoverageEstimateHigh] = useState(0);
+  const [trade, setTrade] = useState("");
+  const [bizState, setBizState] = useState("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      businessTrade: "",
-      businessState: "",
+      businessTrade: trade,
+      businessState: bizState,
       businessPayroll: payroll,
     },
   });
@@ -121,6 +123,8 @@ const PremiumEstimator = ({ toggleCalculator, payroll }: Props) => {
   };
 
   function setPayrollFromCalc() {
+    setTrade(form.getValues("businessTrade"));
+    setBizState(form.getValues("businessState"));
     toggleCalculator(0);
   }
 
