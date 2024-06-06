@@ -89,7 +89,8 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
         </header>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            // onSubmit={form.handleSubmit(onSubmit)}
+            onChange={calcPayroll}
             className="space-y-12 gap-12"
           >
             <div className="border rounded-lg border-gray-1 p-8">
@@ -107,7 +108,6 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                           type="number"
                           placeholder="ex: 21"
                           className="input-class"
-                          onChange={calcPayroll}
                           {...field}
                         />
                       </FormControl>
@@ -136,7 +136,6 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                           type="number"
                           placeholder="ex: 6"
                           className="input-class"
-                          onChange={calcPayroll}
                           {...field}
                         />
                       </FormControl>
@@ -165,7 +164,6 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                           type="number"
                           placeholder="ex: 200,000"
                           className="input-class"
-                          onChange={calcPayroll}
                           {...field}
                         />
                       </FormControl>
@@ -193,7 +191,6 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                           type="number"
                           placeholder="ex: 40"
                           className="input-class"
-                          onChange={calcPayroll}
                           {...field}
                         />
                       </FormControl>
@@ -210,10 +207,10 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
 
             <div className="border rounded-lg border-gray-1 p-12 flex flex-col items-center">
               <p className="form-label-2 pb-8 text-center w-full">
-                Coverage starting at
+                Estimated annual payroll
               </p>
               <p className="text-36 w-full font-medium text-gray-1  text-center">
-                ${payrollAmount}/Month
+                ${payrollAmount.toLocaleString()}/Year
               </p>
             </div>
           </form>
