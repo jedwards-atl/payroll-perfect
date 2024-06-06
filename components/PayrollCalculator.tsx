@@ -53,6 +53,16 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
     toggleCalculator();
   }
 
+  const calcPayroll = () => {
+    console.log(form.getValues());
+    const hourlyWage = form.getValues("hourlyWage");
+    const employeeCount = form.getValues("employeeCount");
+    const hoursPerWeekPerEmployee = form.getValues("hoursPerWeekPerEmployee");
+    const weeksOpenPerYear = form.getValues("weeksOpenPerYear");
+    const payroll = hourlyWage * employeeCount * hoursPerWeekPerEmployee * weeksOpenPerYear;
+    setPayrollAmount(payroll);
+  }
+
   return (
     <section className="flex flex-col items-center">
       <div className="w-1/2 xl:w-1/3 bg-purple-2 p-16 rounded-3xl">
@@ -73,7 +83,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
               src="darkUnderline.svg"
               alt="underline"
               height={30}
-              width={200}
+              width={320}
             />
           </div>
         </header>
@@ -97,6 +107,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                           type="number"
                           placeholder="ex: 21"
                           className="input-class"
+                          onChange={calcPayroll}
                           {...field}
                         />
                       </FormControl>
@@ -125,6 +136,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                           type="number"
                           placeholder="ex: 6"
                           className="input-class"
+                          onChange={calcPayroll}
                           {...field}
                         />
                       </FormControl>
@@ -153,6 +165,7 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                           type="number"
                           placeholder="ex: 200,000"
                           className="input-class"
+                          onChange={calcPayroll}
                           {...field}
                         />
                       </FormControl>
@@ -180,12 +193,14 @@ const PayrollCalculator = ({ toggleCalculator }: Props) => {
                           type="number"
                           placeholder="ex: 40"
                           className="input-class"
+                          onChange={calcPayroll}
                           {...field}
                         />
                       </FormControl>
                       <FormMessage className="form-message mt-2" />
                       <p className="flex flex-row text-white text-14 pt-2">
-                        Hours worked per week are per employee
+                        Estimate the number of weeks your business operates each
+                        year
                       </p>
                     </div>
                   </div>
